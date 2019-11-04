@@ -21,6 +21,10 @@ class XeroController extends Controller
 	private $storage;
 
 	public function __construct() {
+		if(is_null(config('xero.clientId')) || is_null(config('xero.clientSecret')) || is_null(config('xero.redirectUri'))) {
+			dd("Make suer your environment file is set properly. If it's set, try run 'php artisan config:clear' which will update the setting");
+		}
+
         $this->provider = new GenericProvider([
 		    'clientId'                => config('xero.clientId'),   
 		    'clientSecret'            => config('xero.clientSecret'),
@@ -63,7 +67,7 @@ class XeroController extends Controller
     public function callback() {
 		// If we don't have an authorization code then get one
   		if (!isset($_GET['code'])) {
-      		header("Location: index.php?error=true");
+      		header("Location: /");
       		exit();
   		// Check given state against previously stored one to mitigate CSRF attack
   		} elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
@@ -133,7 +137,7 @@ class XeroController extends Controller
 		LaravelStorage::disk('local')->put('accounts.txt', $apiResponseAccounts);
 		LaravelStorage::disk('local')->put('contacts.txt', $apiResponseContacts);
 
-		echo("Files have been save to ROOT/DIRECTORY/OF/THE/PROJECT/storage/app, ");
+		echo("Files have been save to ROOT/DIRECTORY/OF/THE/PROJECT/storage/app");
 
     }
 
