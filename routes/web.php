@@ -16,4 +16,6 @@ Route::get('/', function () {
 });
 
 
-Route::get('/redirect', 'SocialAuthFacebookController@redirect');
+Route::get('/xero', 'XeroController@login');
+Route::get('/xero/redirect', 'XeroController@callback');
+Route::get('/xero/fetchdata', 'XeroController@fetchdata');

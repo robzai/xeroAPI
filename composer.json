@@ -8,6 +8,7 @@
     ],
     "license": "MIT",
     "require": {
+        "xeroapi/xero-php-oauth2": "0.2.7",
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
